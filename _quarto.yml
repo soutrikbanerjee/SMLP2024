@@ -74,7 +74,7 @@ website:
       - icon: github
         href: https://github.com/RePsychLing/SMLP2024
   page-navigation: true
-  back-to-top-navigation: true
+  ## back-to-top-navigation: true
   sidebar:
     style: "floating" # floating or docked
     search: true
