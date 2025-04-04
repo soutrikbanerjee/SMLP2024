@@ -72,7 +72,6 @@ re_subj = create_re(1.2, 1.5, 1.5; corrmat)
 fit!(simulate!(m0; θ, β, σ))
 ```
 
-
 ```{julia}
 #| code-fold: true
 shrinkageplot(m0)
