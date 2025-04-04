@@ -52,15 +52,27 @@ dat = DataFrame(dataset(:kkl15))
 describe(dat)
 ```
 
+```{Julia}
+draw(
+  data(dat) *
+  mapping(
+    :rt => log => "log(Reaction time [ms])";
+    color=:CTR =>
+      renamer("val" => "valid cue", "sod" => "some obj/diff pos", "dos" => "diff obj/same pos", "dod" => "diff obj/diff pos") => "Cue-target relation",
+  ) *
+  density(),
+)
+```
+
 ```{julia}
 dat_subj = combine(
   groupby(dat, [:Subj, :CTR]),
-  nrow => :n,
+  :rt => length => :n,
   :rt => mean => :rt_m,
-  :rt => (c -> mean(log, c)) => :lrt_m,
+  :rt => (r -> mean(log, r)) => :lrt_m,
 )
 dat_subj.CTR = categorical(dat_subj.CTR, levels=levels(dat.CTR))
-describe(dat_subj)
+dat_subj
 ```
 
 ```{julia}
@@ -221,7 +233,7 @@ gof_summary = let
     deviance=round.(deviance.(mods), digits=0),
     AIC=round.(aic.(mods),digits=0),
     AICc=round.(aicc.(mods),digits=0),
-     BIC=round.(bic.(mods),digits=0),
+    BIC=round.(bic.(mods),digits=0),
     χ²=vcat(:., round.(lrt.tests.deviancediff, digits=0)),
     χ²_dof=vcat(:., round.(lrt.tests.dofdiff, digits=0)),
     pvalue=vcat(:., round.(lrt.tests.pvalues, digits=3))
@@ -290,7 +302,7 @@ gof_summary = let
     deviance=round.(deviance.(mods), digits=0),
     AIC=round.(aic.(mods),digits=0),
     AICc=round.(aicc.(mods),digits=0),
-     BIC=round.(bic.(mods),digits=0),
+    BIC=round.(bic.(mods),digits=0),
     χ²=vcat(:., round.(lrt.tests.deviancediff, digits=0)),
     χ²_dof=vcat(:., round.(lrt.tests.dofdiff, digits=0)),
     pvalue=vcat(:., round.(lrt.tests.pvalues, digits=3))
@@ -370,7 +382,6 @@ caterpillar!(Figure(; resolution=(800, 1200)), cm1; orderby=2)
 ```
 
 ## Shrinkage plot
-
 
 ```{julia}
 #| code-fold: true
