@@ -167,7 +167,6 @@ Often the intercept will be on a different scale and potentially less interestin
 ridgeplot(samp; show_intercept=false)
 ```
 
-
 # Singularity
 
 Let's consider the classic dysetuff dataset:
@@ -176,7 +175,6 @@ Let's consider the classic dysetuff dataset:
 dyestuff = dataset(:dyestuff)
 mdye = fit(MixedModel, @formula(yield ~ 1 + (1 | batch)), dyestuff)
 ```
-
 
 ```{julia}
 #| warning: false
