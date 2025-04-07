@@ -49,3 +49,5 @@ site_libs/
 *.ipynb
 
 .DS_Store
+Manifest.toml
+Project.toml
